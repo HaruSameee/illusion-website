@@ -1,28 +1,18 @@
-import type { ReactNode } from "react";
-import ThemeProvider from "@/components/theme-provider";
-import { Metadata } from "next";
-import { generateDefaultMetadata } from "@/utils/metadata";
-import { notoSansJp } from "@/utils/font";
-import type { Viewport } from "next";
+import ThemeProvider from "@/features/theme/components/theme-provider";
+import { primaryFont } from "@/features/theme/utils/fonts";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import type { PropsWithChildren, ReactNode } from "react";
 
-export const viewport: Viewport = {
-  themeColor: "#000d1a"
-};
-
-type LayoutProps = {
-  children: ReactNode
-};
-
-export const generateMetadata = (_: unknown, parent: any): Metadata => generateDefaultMetadata(parent);
-
-export default function Layout({ children }: LayoutProps): JSX.Element {
+export default function Layout({ children }: PropsWithChildren): ReactNode {
   return (
-    <html lang="ja">
+    <html lang="ja" className="dark">
       <head />
-      <body className={notoSansJp.className}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+      <body className={primaryFont.className}>
+        <AppRouterCacheProvider>
+          <InitColorSchemeScript attribute="class" />
+          <ThemeProvider>{children}</ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
