@@ -13,7 +13,7 @@ draft: true
 自動化(selfbot化)した複数のアカウントをツールを介して操作します
 ツールによって様々ですが、このような機能があることが多いです。
 
-![](image/selfbot.mp4)
+![](image/selfbot.gif)
 
 - Joiner
 - Spameer(sender)
