@@ -55,9 +55,7 @@
     "unified": "^11.0.5"
   },
   "homepage": "https://github.com/illusionDev-2/illusion-website#readme",
-  "keywords": [
-    "illusion"
-  ],
+  "keywords": ["illusion"],
   "license": "Apache-2.0",
   "lint-staged": {
     "*.{apng,png,jpg,jpeg,jpe,jfif,jfi,jif,tif,tiff,heif,heic}": [
@@ -83,9 +81,7 @@
     "preview": "bun run build && serve out",
     "prod": "cross-env NEXT_PUBLIC_BASE_URL=\"https://www.綾波レイ.xyz\" bun run"
   },
+  "trustedDependencies": ["@biomejs/biome"],
   "type": "module",
-  "version": "0.0.0",
-  "trustedDependencies": [
-    "@biomejs/biome"
-  ]
+  "version": "0.0.0"
 }

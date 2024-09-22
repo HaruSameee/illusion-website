@@ -1,9 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.2/schema.json",
   "files": {
-    "ignore": [
-      "node_modules"
-    ],
     "ignoreUnknown": false
   },
   "formatter": {
@@ -31,7 +28,7 @@
   },
   "vcs": {
     "clientKind": "git",
-    "enabled": false,
-    "useIgnoreFile": false
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }
