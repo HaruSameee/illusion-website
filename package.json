@@ -1,66 +1,7 @@
 {
-  "name": "illusion-website",
-  "version": "0.0.0",
-  "description": "The official website of illusion.",
-  "type": "module",
-  "private": true,
-  "lint-staged": {
-    "*.{apng,png,jpg,jpeg,jpe,jfif,jfi,jif,tif,tiff,heif,heic}": [
-      "bun run scripts/exif-remove.ts"
-    ]
-  },
-  "scripts": {
-    "prepare": "husky",
-    "assets": "concurrently -g \"npm:assets:*\"",
-    "assets:clean": "rimraf public/article-assets",
-    "assets:copy": "bun run scripts/copy-assets.ts",
-    "dev": "bun run local \"concurrently\" \"-g \\\"npm:dev:*\\\"\"",
-    "dev:assets": "bun run assets",
-    "dev:next": "next dev",
-    "build": "concurrently -g \"npm:build:*\"",
-    "build:clean": "rimraf .next",
-    "build:next": "next build",
-    "build:assets": "bun run assets",
-    "build:adjust": "rimraf -g \"out/**/*/__EMPTYSLUGS.*\"",
-    "preview": "concurrently -g \"npm:preview:*\"",
-    "preview:build": "bun run build",
-    "preview:serve": "serve out",
-    "prod": "cross-env NEXT_PUBLIC_BASE_URL=\"https://www.綾波レイ.xyz\" bun run",
-    "local": "cross-env NEXT_PUBLIC_BASE_URL=\"http://localhost:3000\" bun run"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/illusionDev-2/illusion-website.git"
-  },
-  "keywords": [
-    "illusion"
-  ],
   "author": "illusionDev-2",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/illusionDev-2/illusion-website/issues"
-  },
-  "homepage": "https://github.com/illusionDev-2/illusion-website#readme",
-  "devDependencies": {
-    "@types/hast": "^3.0.4",
-    "@types/html-to-text": "^9.0.4",
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
-    "@types/webpack": "^5.28.5",
-    "concurrently": "^8.2.2",
-    "cross-env": "^7.0.3",
-    "eslint": "^9.1.1",
-    "exif-be-gone": "^1.4.1",
-    "glob": "^10.3.12",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "memory-streams": "^0.1.3",
-    "rimraf": "^5.0.5",
-    "serve": "^14.2.3",
-    "textlint": "^14.2.0",
-    "typescript": "^5.4.5",
-    "unified": "^11.0.4"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -87,5 +28,57 @@
     "remark-rehype": "^11.1.0",
     "simple-git": "^3.24.0",
     "url-join": "^5.0.0"
-  }
+  },
+  "description": "The official website of illusion.",
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/html-to-text": "^9.0.4",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@types/webpack": "^5.28.5",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.1.1",
+    "exif-be-gone": "^1.4.1",
+    "glob": "^10.3.12",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "memory-streams": "^0.1.3",
+    "rimraf": "^5.0.5",
+    "serve": "^14.2.3",
+    "textlint": "^14.2.0",
+    "typescript": "^5.4.5",
+    "unified": "^11.0.4"
+  },
+  "homepage": "https://github.com/illusionDev-2/illusion-website#readme",
+  "keywords": [
+    "illusion"
+  ],
+  "license": "Apache-2.0",
+  "lint-staged": {
+    "*.{apng,png,jpg,jpeg,jpe,jfif,jfi,jif,tif,tiff,heif,heic}": [
+      "bun run scripts/exif-remove.ts"
+    ]
+  },
+  "name": "illusion-website",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/illusionDev-2/illusion-website.git"
+  },
+  "scripts": {
+    "assets": "rimraf public/article-assets && bun run scripts/copy-assets.ts",
+    "build": "bun run build:clean && bun run build:next && bun run build:assets && bun run build:adjust",
+    "build:adjust": "rimraf -g \"out/**/*/__EMPTYSLUGS.*\"",
+    "build:assets": "bun run assets",
+    "build:clean": "rimraf .next",
+    "build:next": "next build",
+    "dev": "bun run local assets && bun run local next dev",
+    "local": "cross-env NEXT_PUBLIC_BASE_URL=\"http://localhost:3000\" bun run",
+    "prepare": "husky",
+    "preview": "bun run build && serve out",
+    "prod": "cross-env NEXT_PUBLIC_BASE_URL=\"https://www.綾波レイ.xyz\" bun run"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }
