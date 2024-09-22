@@ -12,10 +12,10 @@ import rehypeRaw from "rehype-raw";
 import rehypeReact, { type Options as RehypeReactOptions } from "rehype-react";
 import rehypeShiftHeading from "rehype-shift-heading";
 import rehypeSlug from "rehype-slug";
-import { remark } from "remark";
 import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import type { Plugin } from "unified";
+import { type Plugin, unified } from "unified";
 
 type RehypeFixResourceLinkOptions = {
   baseUrl: URL;
@@ -93,7 +93,9 @@ export const toHtml = async (
 ): Promise<Html> => {
   const { renderToString } = await import("react-dom/server");
 
-  return await remark()
+  return await unified()
+    // @ts-expect-error: TODO: type error
+    .use(remarkParse)
     .use(remarkRehype, {
       allowDangerousHtml: true,
     })
@@ -108,6 +110,10 @@ export const toHtml = async (
       shift: 1,
     })
     .use(rehypeSlug)
+    .use(rehypeBudoux, {
+      className: "budoux-breaked",
+    })
+    // @ts-expect-error: TODO: type error
     .use(rehypeReact, {
       Fragment,
       jsx,
@@ -116,10 +122,8 @@ export const toHtml = async (
         a: MarkdownLink,
       },
     } as RehypeReactOptions)
-    .use(rehypeBudoux, {
-      className: "budoux-breaked",
-    })
     .process(markdown)
+    // @ts-expect-error: TODO: type error
     .then(({ result }) => renderToString(result));
 };
 

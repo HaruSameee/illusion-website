@@ -14,9 +14,9 @@ export const generatePathnameFromMetadata = (parent: any): string =>
       (v) =>
         typeof v === "object" &&
         v !== null &&
-        Object.prototype.hasOwnProperty.call(v, "urlPathname"),
+        Object.prototype.hasOwnProperty.call(v, "url"),
     ),
-    (v) => v.urlPathname.replace(/\?.+/, "") ?? "",
+    (v) => v.url.pathname.replace(/\?.+/, "") ?? "",
   );
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>

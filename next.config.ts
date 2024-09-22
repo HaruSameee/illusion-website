@@ -25,7 +25,6 @@ const setResolveAlias = (
 const budouxAlias = "budoux/dist/index";
 
 const config: NextConfig = {
-  output: "export",
   reactStrictMode: true,
   experimental: {
     ppr: true,
