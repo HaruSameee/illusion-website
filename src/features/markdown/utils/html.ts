@@ -8,6 +8,7 @@ import { toText } from "hast-util-to-text";
 import { execPipe, map, toArray } from "iter-tools";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import rehypeBudoux from "rehype-budoux";
+import rehypeImgSize from "rehype-img-size";
 import rehypeRaw from "rehype-raw";
 import rehypeReact, { type Options as RehypeReactOptions } from "rehype-react";
 import rehypeShiftHeading from "rehype-shift-heading";
@@ -106,6 +107,7 @@ export const toHtml = async (
     .use(rehypeFootnoteTitle)
     .use(rehypeFixFootnote)
     .use(remarkGfm)
+    .use(rehypeImgSize)
     .use(rehypeShiftHeading, {
       shift: 1,
     })

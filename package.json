@@ -21,6 +21,8 @@
     "react": "^19.0.0-beta-26f2496093-20240514",
     "react-dom": "^19.0.0-beta-26f2496093-20240514",
     "rehype-budoux": "^1.1.4",
+    "rehype-img-size": "^1.0.1",
+    "rehype-plugin-image-native-lazy-loading": "^1.2.0",
     "rehype-raw": "^7.0.0",
     "rehype-react": "^8.0.0",
     "rehype-shift-heading": "^2.0.0",
