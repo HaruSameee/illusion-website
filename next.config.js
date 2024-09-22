@@ -1,7 +1,5 @@
 // @ts-check
 
-const dev = process.env.NODE_ENV === "development";
-
 /**
  * @typedef {import("webpack").Configuration} Configuration
  */
@@ -10,7 +8,6 @@ const dev = process.env.NODE_ENV === "development";
  * @type {import("next").NextConfig}
  */
 export default {
-  output: dev ? undefined : "export",
   reactStrictMode: true,
   experimental: {
     esmExternals: true
