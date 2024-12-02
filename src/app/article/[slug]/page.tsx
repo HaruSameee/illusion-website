@@ -14,13 +14,18 @@ type PageParams = {
   slug: Slug;
 };
 
+type PageProps = {
+  params: Promise<PageParams>;
+};
+
 const ARTICLE_CONTENT_DIR = new ContentsDir("article");
 
 export const generateMetadata = async (
-  { params: { slug } }: PageProps,
+  { params }: PageProps,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   parent: any,
 ): Promise<Metadata> => {
+  const { slug } = await params;
   const exists = await ARTICLE_CONTENT_DIR.existsSlug(slug);
 
   if (!exists) {
@@ -28,7 +33,7 @@ export const generateMetadata = async (
   }
 
   const { title, description } = await ARTICLE_CONTENT_DIR.getArticle(slug);
-  const defaultMetadata = generateDefaultMetadata(parent);
+  const defaultMetadata = await generateDefaultMetadata();
 
   return {
     title,
@@ -60,13 +65,11 @@ export const generateStaticParams = async (): Promise<PageParams[]> => {
   return slugs;
 };
 
-type PageProps = {
-  params: PageParams;
-};
-
 export default async function Page({
-  params: { slug },
+  params,
 }: PageProps): Promise<JSX.Element> {
+  const { slug } = await params;
+
   if (!(await ARTICLE_CONTENT_DIR.existsSlug(slug))) {
     notFound();
   }

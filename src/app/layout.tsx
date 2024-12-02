@@ -12,9 +12,7 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const generateMetadata = (_: unknown, parent: any): Metadata =>
-  generateDefaultMetadata(parent);
+export const generateMetadata = generateDefaultMetadata;
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
   return (

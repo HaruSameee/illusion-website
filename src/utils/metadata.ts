@@ -2,27 +2,13 @@ import { siteDescription, siteName, siteShortDescription } from "@/consts/site";
 
 import { execPipe, find, map } from "iter-tools";
 import type { Metadata, ResolvingMetadata } from "next";
+import { headers } from "next/headers";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const generatePathnameFromMetadata = (parent: any): string =>
-  execPipe(
-    Object.getOwnPropertySymbols(parent),
-    map((s) => parent[s as keyof ResolvingMetadata]),
-    find(
-      (v) =>
-        typeof v === "object" &&
-        v !== null &&
-        Object.prototype.hasOwnProperty.call(v, "url"),
-    ),
-    (v) => v.url.pathname.replace(/\?.+/, "") ?? "",
-  );
-
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const generateDefaultMetadata = (parent: any): Metadata => {
-  const pathname = generatePathnameFromMetadata(parent);
-  const url = new URL(pathname, BASE_URL);
+export const generateDefaultMetadata = async (): Promise<Metadata> => {
+  const h = await headers();
+  const url = new URL(h.get("x-url") as string);
 
   return {
     metadataBase: BASE_URL === undefined ? undefined : new URL(BASE_URL),

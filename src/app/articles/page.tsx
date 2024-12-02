@@ -15,7 +15,7 @@ export const generateMetadata = async (
 ): Promise<Metadata> => {
   const title = "ブログ";
   const description = "ブログの記事一覧";
-  const defaultMetadata = generateDefaultMetadata(parent);
+  const defaultMetadata = await generateDefaultMetadata();
 
   return {
     title,
