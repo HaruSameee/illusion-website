@@ -142,7 +142,9 @@ export class ContentsDir {
         maxLength: 100,
       }),
       html,
-      ...(await getFileTimestamp(path)),
+      createdTimestamp: 0,
+      updatedTimestamp: 0,
+      //...(await getFileTimestamp(path)),
     };
   }
 }
