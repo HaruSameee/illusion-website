@@ -27,7 +27,6 @@ const budouxAlias = "budoux/dist/index";
 const config: NextConfig = {
   reactStrictMode: true,
   experimental: {
-    ppr: true,
     esmExternals: true,
     reactCompiler: true,
     turbo: {

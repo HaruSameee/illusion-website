@@ -1,10 +1,11 @@
 "use client";
 
 import { notoSansJp } from "@/utils/font";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import { blue } from "@mui/material/colors";
 import {
-  Experimental_CssVarsProvider as CssVarsProvider,
+  ThemeProvider as MuiThemeProvider,
   darken,
   extendTheme,
 } from "@mui/material/styles";
@@ -38,9 +39,11 @@ export default function ThemeProvider({
   });
 
   return (
-    <CssVarsProvider theme={theme} defaultColorScheme="dark" defaultMode="dark">
-      <CssBaseline />
-      {children}
-    </CssVarsProvider>
+    <AppRouterCacheProvider>
+      <MuiThemeProvider theme={theme} defaultMode="dark">
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
+    </AppRouterCacheProvider>
   );
 }
