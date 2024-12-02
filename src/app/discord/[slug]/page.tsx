@@ -29,7 +29,7 @@ export const generateMetadata = async (
   }
 
   const { title, description } = await DISCORD_CONTENT_DIR.getArticle(slug);
-  const defaultMetadata = generateDefaultMetadata(parent);
+  const defaultMetadata = await generateDefaultMetadata();
 
   return {
     title,
@@ -50,12 +50,13 @@ export const generateStaticParams = async (): Promise<PageParams[]> =>
   );
 
 type PageProps = {
-  params: PageParams;
+  params: Promise<PageParams>;
 };
 
 export default async function Page({
-  params: { slug },
+  params,
 }: PageProps): Promise<JSX.Element> {
+  const { slug } = await params;
   const article = await DISCORD_CONTENT_DIR.getArticle(slug);
   const headings = getHeadings(article.html);
 
