@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import DraftBadge from "./draft-badge";
 import TableOfContents from "./table-of-contents";
+import "@/features/markdown/styles/syntax-highlight.css";
 
 const ArticleContent = styled("div")({
   ".budoux-breaked": {

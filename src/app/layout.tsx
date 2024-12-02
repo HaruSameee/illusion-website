@@ -18,9 +18,9 @@ export const generateMetadata = (_: unknown, parent: any): Metadata =>
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <head />
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

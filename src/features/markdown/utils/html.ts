@@ -9,6 +9,7 @@ import { execPipe, map, toArray } from "iter-tools";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import rehypeBudoux from "rehype-budoux";
 import rehypeImgSize from "rehype-img-size";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeRaw from "rehype-raw";
 import rehypeReact, { type Options as RehypeReactOptions } from "rehype-react";
 import rehypeShiftHeading from "rehype-shift-heading";
@@ -107,6 +108,9 @@ export const toHtml = async (
     .use(rehypeFootnoteTitle)
     .use(rehypeFixFootnote)
     .use(remarkGfm)
+    .use(rehypePrettyCode, {
+      defaultLang: "plaintext",
+    })
     .use(rehypeImgSize)
     .use(rehypeShiftHeading, {
       shift: 1,

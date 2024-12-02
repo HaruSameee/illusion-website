@@ -16,10 +16,12 @@ type PageParams = {
 const DISCORD_CONTENT_DIR = new ContentsDir("discord");
 
 export const generateMetadata = async (
-  { params: { slug } }: PageProps,
+  { params }: PageProps,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   parent: any,
 ): Promise<Metadata> => {
+  // resolve `Error: Route "/article/[slug]" used `params.slug`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis`
+  const { slug } = await params;
   const exists = await DISCORD_CONTENT_DIR.existsSlug(slug);
 
   if (!exists) {
