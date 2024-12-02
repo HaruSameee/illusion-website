@@ -1,7 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  request.headers.set("x-url", request.url);
+  const requestHeaders = new Headers(request.headers);
 
-  return NextResponse.next();
+  requestHeaders.set("x-url", request.url);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
