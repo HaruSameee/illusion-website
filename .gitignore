@@ -3,3 +3,6 @@
 /node_modules
 /out
 /public/article-assets
+
+# NOTE: DEPLOYMENT ERROR OF /robust-discord-server
+/src/contents/article/robust-discordserver
