@@ -1,5 +1,4 @@
-import ThemeProvider from "@/components/theme-provider";
-import { notoSansJp } from "@/utils/font";
+import ThemeProvider from "@/theme/theme-provider";
 import { generateDefaultMetadata } from "@/utils/metadata";
 import type { Metadata } from "next";
 import type { Viewport } from "next";
@@ -21,7 +20,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <html lang="ja">
       <head />
-      <body className={notoSansJp.className}>
+      <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
