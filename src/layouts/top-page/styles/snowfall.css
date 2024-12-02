@@ -1,0 +1,77 @@
+.snows div {
+  position: absolute;
+  top: -250px;
+  left: 0;
+  border-radius: 50%;
+  background: var(--snowball-color);
+  opacity: 0.9;
+}
+
+.snows div:nth-child(1) {
+  width: 10px;
+  height: 10px;
+  filter: blur(calc(var(--snowball-blur) + 2px));
+  box-shadow:
+    5vw -40px 0 var(--snowball-color),
+    10vw 150px var(--snowball-color),
+    15vw -230px var(--snowball-color),
+    22vw 240px var(--snowball-color),
+    30vw 120px var(--snowball-color),
+    35vw -180px var(--snowball-color),
+    44vw 240px var(--snowball-color),
+    50vw 0 var(--snowball-color),
+    60vw 180px var(--snowball-color),
+    68vw 40px var(--snowball-color),
+    74vw -130px var(--snowball-color),
+    81vw -240px var(--snowball-color),
+    88vw 100px var(--snowball-color),
+    95vw 60px var(--snowball-color);
+  animation: fall 12s linear infinite;
+}
+
+.snows div:nth-child(2) {
+  width: 10px;
+  height: 10px;
+  filter: blur(calc(var(--snowball-blur) + 2px));
+
+  box-shadow: 7vw 220px 0 var(--snowball-color), 35vw 20px var(--snowball-color),
+    68vw 100px var(--snowball-color), 93vw -190px var(--snowball-color);
+  animation: fall 12.5s linear infinite;
+  animation-delay: 6s;
+}
+
+.snows div:nth-child(3) {
+  width: 14px;
+  height: 14px;
+  filter: blur(calc(var(--snowball-blur) + 3px));
+
+  box-shadow:
+    12vw 5px 0 var(--snowball-color),
+    32vw -100px var(--snowball-color),
+    45vw -180px var(--snowball-color),
+    68vw 40px var(--snowball-color),
+    77vw 65px var(--snowball-color),
+    94vw 230px var(--snowball-color);
+  animation: fall 10s linear infinite;
+  animation-delay: 6s;
+}
+
+.snows div:nth-child(4) {
+  width: 20px;
+  height: 20px;
+  filter: blur(calc(var(--snowball-blur) + 8px));
+
+  box-shadow: 40vw -200px var(--snowball-color), 80vw 220px
+    var(--snowball-color);
+  animation: fall 7s linear infinite;
+  animation-delay: 4s;
+}
+
+@keyframes fall {
+  0% {
+    top: -250px;
+  }
+  100% {
+    top: calc(100% + 250px);
+  }
+}

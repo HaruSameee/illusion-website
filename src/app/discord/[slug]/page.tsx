@@ -2,17 +2,26 @@ import ArticlePage from "@/features/markdown/components/article-page";
 import { ContentsDir } from "@/features/markdown/utils/content";
 import { getHeadings } from "@/features/markdown/utils/html";
 import type { Slug } from "@/features/markdown/utils/types";
-import { generateDefaultMetadata, generateNotFoundMetadata } from "@/utils/metadata";
+import {
+  generateDefaultMetadata,
+  generateNotFoundMetadata,
+} from "@/utils/metadata";
 import { execPipe, map, toArray } from "iter-tools";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 type PageParams = {
-  slug: Slug
+  slug: Slug;
 };
 
 const DISCORD_CONTENT_DIR = new ContentsDir("discord");
 
-export const generateMetadata = async ({ params: { slug } }: PageProps, parent: any): Promise<Metadata> => {
+export const generateMetadata = async (
+  { params }: PageProps,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  parent: any,
+): Promise<Metadata> => {
+  // resolve `Error: Route "/article/[slug]" used `params.slug`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis`
+  const { slug } = await params;
   const exists = await DISCORD_CONTENT_DIR.existsSlug(slug);
 
   if (!exists) {
@@ -28,24 +37,27 @@ export const generateMetadata = async ({ params: { slug } }: PageProps, parent: 
     openGraph: {
       ...defaultMetadata.openGraph,
       title,
-      description
-    }
+      description,
+    },
   };
 };
 
-export const generateStaticParams = async (): Promise<PageParams[]> => execPipe(
-  await DISCORD_CONTENT_DIR.getAllSlugs(),
-  map(slug => ({ slug })),
-  toArray
-);
+export const generateStaticParams = async (): Promise<PageParams[]> =>
+  execPipe(
+    await DISCORD_CONTENT_DIR.getAllSlugs(),
+    map((slug) => ({ slug })),
+    toArray,
+  );
 
 type PageProps = {
-  params: PageParams
+  params: PageParams;
 };
 
-export default async function Page({ params: { slug } }: PageProps): Promise<JSX.Element> {
+export default async function Page({
+  params: { slug },
+}: PageProps): Promise<JSX.Element> {
   const article = await DISCORD_CONTENT_DIR.getArticle(slug);
   const headings = getHeadings(article.html);
 
-  return <ArticlePage {...article} headings={headings} />
+  return <ArticlePage {...article} headings={headings} />;
 }

@@ -1,5 +1,5 @@
-import ModeIcon from '@mui/icons-material/Mode';
-import Chip from "@mui/material/Chip"
+import ModeIcon from "@mui/icons-material/Mode";
+import Chip from "@mui/material/Chip";
 
 export default function DraftBadge(): JSX.Element {
   return (

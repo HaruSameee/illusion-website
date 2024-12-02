@@ -1,60 +1,69 @@
-import type { Markdown, Html, Heading } from "@/features/markdown/utils/types";
-import { HeadingLevel } from "@/features/markdown/utils/types";
-import { remark } from "remark";
-import remarkRehype from "remark-rehype";
-import remarkGfm from "remark-gfm";
-import rehypeShiftHeading from "rehype-shift-heading";
-import { toText } from "hast-util-to-text";
-import rehypeBudoux from "rehype-budoux";
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-import rehypeReact, { type Options as RehypeReactOptions } from "rehype-react";
-import { load } from "cheerio";
-import rehypeSlug from "rehype-slug";
-import { execPipe, map, toArray } from "iter-tools";
 import MarkdownLink from "@/features/markdown/components/markdown-link";
-import rehypeRaw from "rehype-raw";
-import { select, selectAll } from "hast-util-select";
+import type { Heading, Html, Markdown } from "@/features/markdown/utils/types";
+import { HeadingLevel } from "@/features/markdown/utils/types";
+import { load } from "cheerio";
 import type { Root } from "hast";
-import type { Plugin } from "unified";
+import { select, selectAll } from "hast-util-select";
+import { toText } from "hast-util-to-text";
+import { execPipe, map, toArray } from "iter-tools";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
+import rehypeBudoux from "rehype-budoux";
+import rehypeImgSize from "rehype-img-size";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeRaw from "rehype-raw";
+import rehypeReact, { type Options as RehypeReactOptions } from "rehype-react";
+import rehypeShiftHeading from "rehype-shift-heading";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { type Plugin, unified } from "unified";
 
 type RehypeFixResourceLinkOptions = {
-  baseUrl: URL
+  baseUrl: URL;
 };
 
-const rehypeFixResourceLink: Plugin<[RehypeFixResourceLinkOptions], Root> = ({ baseUrl }) => root => {
-  const images = selectAll("[src],[href]", root);
+const rehypeFixResourceLink: Plugin<[RehypeFixResourceLinkOptions], Root> =
+  ({ baseUrl }) =>
+  (root) => {
+    const images = selectAll("[src],[href]", root);
 
-  for (const image of images) {
-    const prop = "src" in image.properties ? "src" : "href";
-    const value = image.properties[prop];
+    for (const image of images) {
+      const prop = "src" in image.properties ? "src" : "href";
+      const value = image.properties[prop];
 
-    if (typeof value !== "string") {
-      continue;
-    }
-
-    const isAbsoluteUrl = (() => {
-      try {
-        new URL(value);
-
-        return true;
-      } catch {
-        return false;
+      if (typeof value !== "string") {
+        continue;
       }
-    })();
 
-    if (isAbsoluteUrl) {
-      continue;
+      const isAbsoluteUrl = (() => {
+        try {
+          new URL(value);
+
+          return true;
+        } catch {
+          return false;
+        }
+      })();
+
+      if (isAbsoluteUrl) {
+        continue;
+      }
+
+      if (
+        value.startsWith(".") ||
+        value.startsWith("/") ||
+        value.startsWith("#") ||
+        value.startsWith("?")
+      ) {
+        continue;
+      }
+
+      image.properties[prop] = new URL(value, baseUrl).href;
     }
+  };
 
-    if (value.startsWith(".") || value.startsWith("/") || value.startsWith("#") || value.startsWith("?")) {
-      continue;
-    }
-
-    image.properties[prop] = new URL(value, baseUrl).href;
-  }
-};
-
-const rehypeFootnoteTitle: Plugin<[], Root> = () => root => {
+const rehypeFootnoteTitle: Plugin<[], Root> = () => (root) => {
   for (const footnote of selectAll("li:has([dataFootnoteBackref])", root)) {
     const link = select("a", footnote);
     const href = link?.properties.href;
@@ -71,7 +80,7 @@ const rehypeFootnoteTitle: Plugin<[], Root> = () => root => {
   }
 };
 
-export const rehypeFixFootnote: Plugin<[], Root> = () => root => {
+export const rehypeFixFootnote: Plugin<[], Root> = () => (root) => {
   const heading = select("#footnote-label", root);
 
   if (heading) {
@@ -80,36 +89,47 @@ export const rehypeFixFootnote: Plugin<[], Root> = () => root => {
   }
 };
 
-export const toHtml = async (baseUrl: URL, markdown: Markdown): Promise<Html> => {
+export const toHtml = async (
+  baseUrl: URL,
+  markdown: Markdown,
+): Promise<Html> => {
   const { renderToString } = await import("react-dom/server");
 
-  return await remark()
+  return await unified()
+    // @ts-expect-error: TODO: type error
+    .use(remarkParse)
     .use(remarkRehype, {
-      allowDangerousHtml: true
+      allowDangerousHtml: true,
     })
     .use(rehypeRaw)
     .use(rehypeFixResourceLink, {
-      baseUrl
+      baseUrl,
     })
     .use(rehypeFootnoteTitle)
     .use(rehypeFixFootnote)
     .use(remarkGfm)
+    .use(rehypePrettyCode, {
+      defaultLang: "plaintext",
+    })
+    .use(rehypeImgSize)
     .use(rehypeShiftHeading, {
-      shift: 1
+      shift: 1,
     })
     .use(rehypeSlug)
+    .use(rehypeBudoux, {
+      className: "budoux-breaked",
+    })
+    // @ts-expect-error: TODO: type error
     .use(rehypeReact, {
       Fragment,
       jsx,
       jsxs,
       components: {
-        a: MarkdownLink
-      }
+        a: MarkdownLink,
+      },
     } as RehypeReactOptions)
-    .use(rehypeBudoux, {
-      className: "budoux-breaked"
-    })
     .process(markdown)
+    // @ts-expect-error: TODO: type error
     .then(({ result }) => renderToString(result));
 };
 
@@ -147,11 +167,11 @@ export const getHeadings = (html: Html): Heading[] => {
 
   return execPipe(
     $(":header"),
-    map(e => ({
+    map((e) => ({
       level: getHeadingLevel(e.tagName),
       id: $(e).attr("id") as string,
-      textContent: $(e).text()
+      textContent: $(e).text(),
     })),
-    toArray
+    toArray,
   );
 };

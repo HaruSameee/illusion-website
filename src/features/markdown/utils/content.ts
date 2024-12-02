@@ -1,13 +1,13 @@
-import { join, relative } from "node:path";
+import { existsSync } from "node:fs";
 import { readFile, readdir, stat } from "node:fs/promises";
-import { asyncFilter, asyncToArray, execPipe, map, reduce } from "iter-tools";
+import { join, relative } from "node:path";
+import { toHtml } from "@/features/markdown/utils/html";
+import { summarize } from "@/features/markdown/utils/summarize";
 import type { Article, Path, Slug } from "@/features/markdown/utils/types";
 import { ArticleFrontMatter } from "@/features/markdown/utils/types";
 import matter from "gray-matter";
-import { toHtml } from "@/features/markdown/utils/html";
-import { summarize } from "@/features/markdown/utils/summarize";
-import simpleGit, { DefaultLogFields, LogResult } from "simple-git";
-import { existsSync } from "node:fs";
+import { asyncFilter, asyncToArray, execPipe, map, reduce } from "iter-tools";
+import simpleGit, { type DefaultLogFields, type LogResult } from "simple-git";
 import urlJoin from "url-join";
 
 const dev = process.env.NODE_ENV === "development";
@@ -15,8 +15,8 @@ const dev = process.env.NODE_ENV === "development";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export type FileTimestamp = {
-  createdTimestamp: number,
-  updatedTimestamp: number
+  createdTimestamp: number;
+  updatedTimestamp: number;
 };
 
 const getFileTimestamp = async (path: Path): Promise<FileTimestamp> => {
@@ -25,33 +25,38 @@ const getFileTimestamp = async (path: Path): Promise<FileTimestamp> => {
   const fsUpdatedTimestamp = stats.mtimeMs;
 
   const git = simpleGit();
-  const log = await new Promise<LogResult<DefaultLogFields>>((resolve, reject) => {
-    git.log({ file: path }, (err, log) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(log);
-      }
-    });
-  });
+  const log = await new Promise<LogResult<DefaultLogFields>>(
+    (resolve, reject) => {
+      git.log({ file: path }, (err, log) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(log);
+        }
+      });
+    },
+  );
   const gitCreatedTimestamp = execPipe(
     log.all,
-    map(l => new Date(l.date).getTime()),
-    reduce(NaN, (acc, v) => v < acc ? v : acc)
+    map((l) => new Date(l.date).getTime()),
+    reduce(Number.NaN, (acc, v) => (v < acc ? v : acc)),
   );
-  const gitUpdatedTimestamp = log.latest?.date && new Date(log.latest.date).getTime();
+  const gitUpdatedTimestamp =
+    log.latest?.date && new Date(log.latest.date).getTime();
 
-  const createdTimestamp = Number.isNaN(gitCreatedTimestamp) ? fsCreatedTimestamp : gitCreatedTimestamp;
+  const createdTimestamp = Number.isNaN(gitCreatedTimestamp)
+    ? fsCreatedTimestamp
+    : gitCreatedTimestamp;
   const updatedTimestamp = gitUpdatedTimestamp || fsUpdatedTimestamp;
 
   return {
     createdTimestamp,
-    updatedTimestamp
-  }
+    updatedTimestamp,
+  };
 };
 
 export class ContentsDir {
-  static readonly CONTENTS_BASE_DIR = join(process.cwd(), "./src/contents")
+  static readonly CONTENTS_BASE_DIR = join(process.cwd(), "./src/contents");
 
   readonly #contentDirPath: Path;
 
@@ -86,8 +91,8 @@ export class ContentsDir {
   async getAllSlugs(): Promise<Slug[]> {
     return await execPipe(
       await readdir(this.#contentDirPath),
-      asyncFilter(async s => {
-        if (!await this.existsSlug(s)) {
+      asyncFilter(async (s) => {
+        if (!(await this.existsSlug(s))) {
           return false;
         }
 
@@ -96,15 +101,15 @@ export class ContentsDir {
 
         return dev || nonDraft;
       }),
-      asyncToArray
+      asyncToArray,
     );
   }
 
   async getAllArticles(): Promise<Article[]> {
     return await execPipe(
       await this.getAllSlugs(),
-      map(s => this.getArticle(s)),
-      asyncToArray
+      map((s) => this.getArticle(s)),
+      asyncToArray,
     );
   }
 
@@ -113,14 +118,20 @@ export class ContentsDir {
     const content = await readFile(path, "utf8");
     const parsed = matter(content);
     const context = {
-      errors: []
+      errors: [],
     };
 
     if (!ArticleFrontMatter(parsed.data, context)) {
       throw context;
     }
 
-    const baseUrl = urlJoin(BASE_URL as string, "article-assets", relative(ContentsDir.CONTENTS_BASE_DIR, this.#contentDirPath), slug, "/");
+    const baseUrl = urlJoin(
+      BASE_URL as string,
+      "article-assets",
+      relative(ContentsDir.CONTENTS_BASE_DIR, this.#contentDirPath),
+      slug,
+      "/",
+    );
     const html = await toHtml(new URL(baseUrl), parsed.content);
 
     return {
@@ -128,10 +139,10 @@ export class ContentsDir {
       draft: parsed.data.draft ?? false,
       title: parsed.data.title,
       description: summarize(html, {
-        maxLength: 100
+        maxLength: 100,
       }),
       html,
-      ...await getFileTimestamp(path)
+      ...(await getFileTimestamp(path)),
     };
   }
 }

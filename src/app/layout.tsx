@@ -1,28 +1,27 @@
-import type { ReactNode } from "react";
-import ThemeProvider from "@/components/theme-provider";
-import { Metadata } from "next";
+import ThemeProvider from "@/theme/theme-provider";
 import { generateDefaultMetadata } from "@/utils/metadata";
-import { notoSansJp } from "@/utils/font";
+import type { Metadata } from "next";
 import type { Viewport } from "next";
+import type { ReactNode } from "react";
 
 export const viewport: Viewport = {
-  themeColor: "#000d1a"
+  themeColor: "#000d1a",
 };
 
 type LayoutProps = {
-  children: ReactNode
+  children: ReactNode;
 };
 
-export const generateMetadata = (_: unknown, parent: any): Metadata => generateDefaultMetadata(parent);
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export const generateMetadata = (_: unknown, parent: any): Metadata =>
+  generateDefaultMetadata(parent);
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <head />
-      <body className={notoSansJp.className}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+      <body suppressHydrationWarning>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
