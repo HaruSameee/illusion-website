@@ -33,6 +33,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "simple-git": "^3.27.0",
+    "throttle-debounce": "^5.0.2",
     "url-join": "^5.0.0"
   },
   "description": "The official website of illusion.",
