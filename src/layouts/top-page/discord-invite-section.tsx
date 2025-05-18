@@ -39,7 +39,7 @@ export default function DiscordInviteSection(): ReactNode {
       <div>
         <MuiLink
           fontWeight="bold"
-          href="https://discord.gg/qfsmmW3rV5"
+          href="https://discord.gg/djJfFqTGPk"
           target="_blank"
           rel="noopener noreferrer"
           fontSize="1.5rem"
