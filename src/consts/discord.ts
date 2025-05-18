@@ -1,1 +1,1 @@
-export const discordInviteCode = "Ayanamist";
+export const discordInviteCode = "djJfFqTGPk";
