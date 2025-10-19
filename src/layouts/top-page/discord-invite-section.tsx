@@ -39,12 +39,12 @@ export default function DiscordInviteSection(): ReactNode {
       <div>
         <MuiLink
           fontWeight="bold"
-          href="https://discord.gg/Ayanamist"
+          href="https://discord.gg/aynm"
           target="_blank"
           rel="noopener noreferrer"
           fontSize="1.5rem"
         >
-          <span>discord.gg/Ayanamist</span>
+          <span>discord.gg/aynm</span>
           <OpenInNewIcon fontSize="inherit" sx={{ verticalAlign: "middle" }} />
         </MuiLink>
       </div>
