@@ -1,7 +1,5 @@
 import { siteDescription, siteName, siteShortDescription } from "@/consts/site";
-
-import { execPipe, find, map } from "iter-tools";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
