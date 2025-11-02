@@ -2,6 +2,7 @@
 
 import DiscordIcon from "@/components/discord-icon";
 import IconTypography from "@/components/icon-typography";
+import { discordInviteCode } from "@/consts/discord";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Divider from "@mui/material/Divider";
 import MuiLink from "@mui/material/Link";
@@ -41,12 +42,12 @@ export default function DiscordInviteSection(): ReactNode {
       <div>
         <MuiLink
           fontWeight="bold"
-          href="https://discord.gg/aynm"
+          href={`https://discord.gg/${discordInviteCode}`}
           target="_blank"
           rel="noopener noreferrer"
           fontSize="1.5rem"
         >
-          <span>discord.gg/aynm</span>
+          <span>discord.gg/{discordInviteCode}</span>
           <OpenInNewIcon fontSize="inherit" sx={{ verticalAlign: "middle" }} />
         </MuiLink>
       </div>
