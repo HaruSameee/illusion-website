@@ -1,8 +1,9 @@
 import NotFoundPage from "@/layouts/not-found-page/not-found-page";
-import { generateNotFoundMetadata } from "@/utils/metadata";
+import { notFoundMetadata } from "@/utils/metadata";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-export const generateMetadata = generateNotFoundMetadata;
+export const metadata: Metadata = notFoundMetadata;
 
 export default function NotFound(): ReactNode {
   return <NotFoundPage />;

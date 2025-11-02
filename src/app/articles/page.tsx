@@ -2,30 +2,18 @@ import NonRootPage from "@/components/non-root-page";
 import { siteName } from "@/consts/site";
 import ArticleCardList from "@/features/markdown/components/article-card-list";
 import { ContentsDir } from "@/features/markdown/utils/content";
-import { generateDefaultMetadata } from "@/utils/metadata";
 import Typography from "@mui/material/Typography";
 import type { Metadata } from "next";
 
 const ARTICLE_CONTENT_DIR = new ContentsDir("article");
 
-export const generateMetadata = async (
-  _: unknown,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  parent: any,
-): Promise<Metadata> => {
-  const title = "ブログ";
-  const description = "ブログの記事一覧";
-  const defaultMetadata = await generateDefaultMetadata();
-
-  return {
-    title,
-    description,
-    openGraph: {
-      ...defaultMetadata.openGraph,
-      title,
-      description,
-    },
-  };
+export const metadata: Metadata = {
+  title: "ブログ",
+  description: "ブログの記事一覧",
+  openGraph: {
+    type: "article",
+    url: "/articles",
+  },
 };
 
 export default async function Page(): Promise<JSX.Element> {
