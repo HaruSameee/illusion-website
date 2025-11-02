@@ -1,3 +1,5 @@
+"use client";
+
 import BrickWall from "@/components/brick-wall";
 import LurkText from "@/layouts/not-found-page/lurk-text";
 import PoemList from "@/layouts/not-found-page/poem-list";

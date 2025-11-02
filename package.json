@@ -18,7 +18,7 @@
     "html-to-text": "^9.0.5",
     "iter-tools": "^7.5.3",
     "lizod": "^0.2.7",
-    "next": "^15.0.3",
+    "next": "^16.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rehype-budoux": "^1.1.4",

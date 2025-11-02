@@ -1,3 +1,5 @@
+"use client";
+
 import DiscordIcon from "@/components/discord-icon";
 import IconTypography from "@/components/icon-typography";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";

@@ -1,3 +1,5 @@
+"use client";
+
 import IconTypography from "@/components/icon-typography";
 import ArticleCardList from "@/features/markdown/components/article-card-list";
 import type { Article } from "@/features/markdown/utils/types";

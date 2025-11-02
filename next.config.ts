@@ -26,13 +26,16 @@ const budouxAlias = "budoux/dist/index";
 
 const config: NextConfig = {
   reactStrictMode: true,
+  reactCompiler: !dev,
   experimental: {
     esmExternals: true,
-    reactCompiler: true,
-    turbo: {
-      resolveAlias: {
-        budoux: budouxAlias,
-      },
+    parallelServerBuildTraces: true,
+    parallelServerCompiles: true,
+    webpackBuildWorker: true,
+  },
+  turbopack: {
+    resolveAlias: {
+      budoux: budouxAlias,
     },
   },
   webpack: dev
