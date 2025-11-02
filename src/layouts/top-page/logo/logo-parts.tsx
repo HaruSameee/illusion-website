@@ -16,7 +16,7 @@ export default function LogoParts({
       fontSize="inherit"
       {...logoFont.style}
       component="span"
-      color={accent ? "secondary.main" : "text.secondary"}
+      color={accent ? "primary.main" : "text.secondary"}
       className={clsx(accent && "logo-accent")}
     >
       {children}

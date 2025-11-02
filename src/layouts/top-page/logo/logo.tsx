@@ -13,12 +13,6 @@ export default function Logo(): ReactNode {
       sx={{
         cursor: "default",
         ...logoFont.style,
-        ".logo-accent": {
-          transition: (theme) => theme.transitions.create(["color"]),
-        },
-        ":hover .logo-accent": {
-          color: "primary.main",
-        },
       }}
     >
       <LogoParts>ILLUSI</LogoParts>
