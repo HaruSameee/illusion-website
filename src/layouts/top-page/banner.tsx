@@ -1,6 +1,6 @@
-import Logo from "@/layouts/top-page/logo/logo";
-import PrimaryLinkList from "@/layouts/top-page/primary-link-list";
-import Box from "@mui/material/Box";
+"use client";
+
+import Logo from "@/layouts/top-page/logo";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -9,10 +9,10 @@ import type { ReactNode } from "react";
 export default function Banner(): ReactNode {
   return (
     <Stack
-      paddingY={3}
       position="relative"
       overflow="hidden"
-      minHeight="15rem"
+      alignItems="center"
+      direction="row"
       sx={{
         "::before": {
           content: '""',
@@ -22,12 +22,9 @@ export default function Banner(): ReactNode {
           backgroundSize: "cover",
           backgroundPosition: "center 60%",
           position: "absolute",
-          bottom: 0,
-          top: 0,
-          left: 0,
-          right: 0,
+          inset: "-5px",
           zIndex: -1,
-          filter: "blur(0.5rem) brightness(0.75)",
+          filter: "blur(5px) brightness(0.75)",
         },
       }}
     >
@@ -39,8 +36,13 @@ export default function Banner(): ReactNode {
           alignItems="flex-end"
           justifyContent="space-between"
           flexWrap="wrap"
-          padding={3}
+          paddingY={6}
           borderRadius="5px"
+          sx={(theme) => ({
+            [theme.breakpoints.down("sm")]: {
+              paddingY: 3,
+            },
+          })}
         >
           <Stack spacing={1} alignItems="flex-start" zIndex={1}>
             <Logo />
@@ -48,9 +50,6 @@ export default function Banner(): ReactNode {
               AyanamistによるDiscord雑談サーバー
             </Typography>
           </Stack>
-          <Box zIndex={1}>
-            <PrimaryLinkList />
-          </Box>
         </Stack>
       </Container>
     </Stack>

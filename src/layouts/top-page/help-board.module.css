@@ -1,0 +1,25 @@
+.brickWall {
+  --gap: rgb(1, 2, 7);
+  --brick: rgb(6, 14, 28);
+  --brickAccent: rgb(4, 10, 28);
+  background:
+    linear-gradient(
+      to bottom,
+      var(--mui-palette-background-default) 0%,
+      transparent 25%,
+      transparent 75%,
+      var(--mui-palette-background-default) 100%
+    ),
+    conic-gradient(at 5% 45%, var(--brick) 90deg, transparent 90deg) 0px 0px /
+    40px 40px,
+    conic-gradient(at 5% 45%, var(--brickAccent) 90deg, transparent 90deg) 20px
+    20px / 40px 40px,
+    var(--gap);
+  padding: calc(5 * var(--mui-spacing)) calc(3 * var(--mui-spacing));
+}
+
+@media (max-width: 1230px) {
+  .brickWall {
+    padding: calc(5 * var(--mui-spacing)) 0px;
+  }
+}

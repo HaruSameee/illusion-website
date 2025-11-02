@@ -1,0 +1,8 @@
+.paper {
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(var(--mui-palette-background-paperChannel) / 0.1) 0%,
+    rgba(var(--mui-palette-primary-mainChannel) / 0.1) 70%,
+    rgba(var(--mui-palette-primary-mainChannel) / 0.5) 100%
+  );
+}

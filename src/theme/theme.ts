@@ -23,7 +23,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-const backgroundDefaultColor = darken(blue[900], 0.9);
+const backgroundDefaultColor = "#000d1a";
 const brickDefaultColor = darken(blue.A700, 0.85);
 const darkBrickDefaultColor = darken(brickDefaultColor, 0.1);
 
@@ -39,7 +39,7 @@ export const theme = createTheme({
   },
   typography: {
     ...primaryFont.style,
-    htmlFontSize: 16,
+    htmlFontSize: 15,
   },
   colorSchemes: {
     dark: {

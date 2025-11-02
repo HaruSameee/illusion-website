@@ -1,7 +1,5 @@
-"use client";
-
-import LogoParts from "@/layouts/top-page/logo/logo-parts";
 import { logoFont } from "@/theme/fonts";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
 
@@ -10,14 +8,17 @@ export default function Logo(): ReactNode {
     <Typography
       variant="h2"
       component="h1"
+      color="textSecondary"
       sx={{
         cursor: "default",
         ...logoFont.style,
       }}
     >
-      <LogoParts>ILLUSI</LogoParts>
-      <LogoParts accent>O</LogoParts>
-      <LogoParts>N</LogoParts>
+      <span>ILLUSI</span>
+      <Box component="span" color="primary.main">
+        O
+      </Box>
+      <span>N</span>
     </Typography>
   );
 }
