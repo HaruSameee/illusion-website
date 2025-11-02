@@ -1,11 +1,10 @@
 import Logo from "@/layouts/top-page/logo/logo";
+import PrimaryLinkList from "@/layouts/top-page/primary-link-list";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
-import "@/layouts/top-page/styles/snowfall.css";
-import PrimaryLinkList from "@/layouts/top-page/primary-link-list";
 
 export default function Banner(): ReactNode {
   return (
@@ -32,18 +31,6 @@ export default function Banner(): ReactNode {
         },
       }}
     >
-      <Box
-        className="snows"
-        sx={{
-          "--snowball-color": "snow",
-          "--snowball-blur": "1px",
-        }}
-      >
-        <div />
-        <div />
-        <div />
-        <div />
-      </Box>
       <Container>
         <Stack
           zIndex={1}
