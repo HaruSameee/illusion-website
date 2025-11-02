@@ -2,10 +2,7 @@ import ArticlePage from "@/features/markdown/components/article-page";
 import { ContentsDir } from "@/features/markdown/utils/content";
 import { getHeadings } from "@/features/markdown/utils/html";
 import type { Slug } from "@/features/markdown/utils/types";
-import {
-  generateDefaultMetadata,
-  generateNotFoundMetadata,
-} from "@/utils/metadata";
+import { generateArticleMetadata } from "@/utils/metadata";
 import { execPipe, map, toArray } from "iter-tools";
 import type { Metadata } from "next";
 
@@ -15,32 +12,13 @@ type PageParams = {
 
 const DISCORD_CONTENT_DIR = new ContentsDir("discord");
 
-export const generateMetadata = async (
-  { params }: PageProps,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  parent: any,
-): Promise<Metadata> => {
-  // resolve `Error: Route "/article/[slug]" used `params.slug`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis`
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const exists = await DISCORD_CONTENT_DIR.existsSlug(slug);
 
-  if (!exists) {
-    return generateNotFoundMetadata();
-  }
-
-  const { title, description } = await DISCORD_CONTENT_DIR.getArticle(slug);
-  const defaultMetadata = await generateDefaultMetadata();
-
-  return {
-    title,
-    description,
-    openGraph: {
-      ...defaultMetadata.openGraph,
-      title,
-      description,
-    },
-  };
-};
+  return await generateArticleMetadata(slug, DISCORD_CONTENT_DIR);
+}
 
 export const generateStaticParams = async (): Promise<PageParams[]> =>
   execPipe(

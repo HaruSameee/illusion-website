@@ -76,15 +76,13 @@
   },
   "scripts": {
     "assets": "rimraf public/article-assets && bun run scripts/copy-assets.ts",
-    "build": "bun run build:clean && bun run build:next && bun run build:assets && bun run build:adjust",
-    "build:adjust": "rimraf -g \"out/**/*/__EMPTYSLUGS.*\"",
+    "build": "bun run build:next && bun run build:assets",
     "build:assets": "bun run assets",
-    "build:clean": "rimraf .next",
     "build:next": "next build",
     "dev": "bun run local assets && bun run local next dev",
     "local": "cross-env NEXT_PUBLIC_BASE_URL=\"http://localhost:3000\" bun run",
     "prepare": "husky",
-    "preview": "bun run build && serve out",
+    "preview": "NEXT_PUBLIC_BASE_URL=http://localhost:3000 bun run build && serve out",
     "prod": "cross-env NEXT_PUBLIC_BASE_URL=\"https://www.綾波レイ.xyz\" bun run"
   },
   "trustedDependencies": ["@biomejs/biome", "sharp"],

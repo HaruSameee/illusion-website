@@ -2,7 +2,7 @@ import ArticlePage from "@/features/markdown/components/article-page";
 import { ContentsDir } from "@/features/markdown/utils/content";
 import { getHeadings } from "@/features/markdown/utils/html";
 import type { Slug } from "@/features/markdown/utils/types";
-import { notFoundMetadata } from "@/utils/metadata";
+import { generateArticleMetadata } from "@/utils/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -20,28 +20,8 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const exists = await ARTICLE_CONTENT_DIR.existsSlug(slug);
 
-  if (!exists) {
-    return {
-      ...notFoundMetadata,
-      openGraph: {
-        type: "article",
-        url: `/article/${encodeURIComponent(slug)}`,
-      },
-    };
-  }
-
-  const { title, description } = await ARTICLE_CONTENT_DIR.getArticle(slug);
-
-  return {
-    title,
-    description,
-    openGraph: {
-      type: "article",
-      url: `/article/${encodeURIComponent(slug)}`,
-    },
-  };
+  return await generateArticleMetadata(slug, ARTICLE_CONTENT_DIR);
 }
 
 export async function generateStaticParams(): Promise<PageParams[]> {
