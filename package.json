@@ -81,7 +81,7 @@
     "build:assets": "bun run assets",
     "build:clean": "rimraf .next",
     "build:next": "next build",
-    "dev": "bun run local assets && bun run local next dev --turbo",
+    "dev": "bun run local assets && bun run local next dev",
     "local": "cross-env NEXT_PUBLIC_BASE_URL=\"http://localhost:3000\" bun run",
     "prepare": "husky",
     "preview": "bun run build && serve out",
