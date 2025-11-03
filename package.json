@@ -83,7 +83,7 @@
     "local": "cross-env NEXT_PUBLIC_BASE_URL=\"http://localhost:3000\" bun run",
     "prepare": "husky",
     "preview": "NEXT_PUBLIC_BASE_URL=http://localhost:3000 bun run build && serve out",
-    "prod": "cross-env NEXT_PUBLIC_BASE_URL=\"https://www.綾波レイ.xyz\" bun run"
+    "prod": "NEXT_PUBLIC_BASE_URL=https://www.ayanamist.jp bun run"
   },
   "trustedDependencies": ["@biomejs/biome", "sharp"],
   "type": "module",
