@@ -122,10 +122,12 @@ sudo nano /etc/systemd/system/frps.service
 [Unit]
 Description=FRP Server Service
 After=network.target
+
 [Service]
 ExecStart=/path/to/frp/frps -c /path/to/frp/frps.toml  # /path/to/frp は実際のパスに置き換え
 Restart=always
 User=ubuntu #必要に応じて削除してok
+
 [Install]
 WantedBy=multi-user.target
 ```
