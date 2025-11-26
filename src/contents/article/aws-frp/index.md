@@ -71,19 +71,19 @@ ElasticIPを作成してインスタンスに関連付ければIPを固定でき
 
 とりあえずupdateとupgradeをします
 
-``bash
+```bash
 sudo apt update && sudo apt upgrade -y
-``
+```
 
 ### frpのダウンロード
 
 frpをダウンロードして移動します
 
-``bash
+```bash
 wget https://github.com/fatedier/frp/releases/download/v0.60.0/frp_0.60.0_linux_amd64.tar.gz
 tar -xzf frp_0.60.0_linux_amd64.tar.gz
 cd frp_0.60.0_linux_amd64
-``
+```
 
 ### 設定ファイルの作成
 
@@ -91,33 +91,33 @@ cd frp_0.60.0_linux_amd64
 
 tokenはホームサーバー側と一致させないと行けないので注意してください。
 
-``bash
+```bash
 nano frps.toml
-``
+```
 
-``toml
+```toml
 bindPort = 7000  # frpcが接続するポート
 auth.method = "token"  # 認証方法
 auth.token = "your_secret_token"  # 任意の秘密文字列（ホームサーバー側と同じにする）
-``
+```
 
 ### frpsを起動
 
 まずは動作するかのテストをします
 
-``bash
+```bash
 ./frps -c ./frps.toml
-``
+```
 
 エラーが無ければ戻り、バックグラウンドで常駐させるためにsystemdサービスを作成します
 
-``bash
+```bash
 sudo nano /etc/systemd/system/frps.service
-``
+```
 
 内容:
 
-``toml
+```toml
 [Unit]
 Description=FRP Server Service
 After=network.target
@@ -127,19 +127,19 @@ Restart=always
 User=ubuntu #必要に応じて削除してok
 [Install]
 WantedBy=multi-user.target
-``
+```
 
 適用:
 
-``bash
+```bash
 sudo systemctl daemon-reload && sudo systemctl enable frps && sudo systemctl start frps
-``
+```
 
 runningかチェック:
 
-``bash
+```bash
 sudo systemctl status frps
-``
+```
 
 これにてAWS側の作業は終了！
 
