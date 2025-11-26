@@ -26,11 +26,11 @@ title: ポート開放不要！IP固定！AWS無料枠＋frpで自宅Minecraft�
 
 左上の**ダッシュボード**をクリックし、ホーム画面に移動して、真ん中あたりにある**インスタンスの起動**をクリックします。
 
-![](image.png)
+![](https://cdn.discordapp.com/attachments/1443221736601419867/1443221758759932014/image.png?ex=69284881&is=6926f701&hm=112db878cd043ae31b1b2088a01ae92dc92d418ddeae984d67944e02a7dd41c8&)
 
 セキュリティグループは後で編集するので、一旦**トラフィックをすべて許可**にしておけば問題ありません。
 
-![](sc.png)
+![](https://cdn.discordapp.com/attachments/1443221736601419867/1443221938951688322/sc.png?ex=692848ac&is=6926f72c&hm=9686924fe8392cb5a43564d1c0a008fba0559b00ce90b45f4426be6f065a96ee&)
 
 私はt3.micro (2 vCPU, 1 GiB RAM)にしました。frpならこれで十分だし、無料枠対象で最も安価なので長く使えます。
 
@@ -40,7 +40,7 @@ title: ポート開放不要！IP固定！AWS無料枠＋frpで自宅Minecraft�
 
 **リソース**エリアの**セキュリティグループ**をクリック。
 
-![](r.png)
+![](https://cdn.discordapp.com/attachments/1443221736601419867/1443221998913454130/r.png?ex=692848ba&is=6926f73a&hm=b0e5a112e5ddcad1b0ff958ea6b6d982f8cde2821b756f8459c0054774b4e885&)
 
 `default`（またはインスタンスに紐づくグループ）をクリック → 下の**インバウンドルール**タブ → **インバウンドルールの編集**。
 
@@ -51,7 +51,7 @@ default以外にグループがある場合も同じ設定を。
 - **TCP 7000** (ソース: 0.0.0.0/0) ← frpc接続用
 - **TCP 25565** (ソース: 0.0.0.0/0) ← Minecraftクライアント用
 
-![](in.png)
+![](https://cdn.discordapp.com/attachments/1443221736601419867/1443222055884427355/in.png?ex=692848c7&is=6926f747&hm=47f2e9bab97fd4ce6faa270b3240dc3b555d44727948a7c67d0f4338cc4422ce&)
 
 ### IPを固定する（Elastic IP）
 
@@ -226,7 +226,7 @@ sudo systemctl status frpc
 サーバーを起動して割り当てたElasticIP:25565
 で参加してみましょう！
 
-![](m.png)
+![](https://cdn.discordapp.com/attachments/1443221736601419867/1443222071961325599/m.png?ex=692848cb&is=6926f74b&hm=bb016d1a9facda58d488c9aa9aecaa334cdf1801657a63e47f14dad97b904b48&)
 
 # 私は見ました。frp、これにて完成！
 
