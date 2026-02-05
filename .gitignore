@@ -1,5 +1,8 @@
 /.history
-/.next
 /node_modules
-/out
 /public/article-assets
+
+# Next.js
+.next
+next-env.d.ts
+out
