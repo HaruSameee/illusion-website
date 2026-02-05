@@ -13,7 +13,7 @@ export type BreadcrumbsProps = {
   items: BreadcrumbsItem[];
 };
 
-export default function Breadcrumbs({ items }: BreadcrumbsProps): JSX.Element {
+export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <MuiBreadcrumbs>
       {items.map(({ href, label, emphasis = false }) => (

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page(): Promise<JSX.Element> {
+export default async function Page() {
   const articles = await ARTICLE_CONTENT_DIR.getAllArticles();
 
   return (

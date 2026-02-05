@@ -65,7 +65,7 @@ export default function ArticlePage({
   draft,
   headings,
   breadcrumbs = [],
-}: ArticlePageProps): JSX.Element {
+}: ArticlePageProps) {
   return (
     <NonRootPage
       breadcrumbs={[

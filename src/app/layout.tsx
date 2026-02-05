@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Layout({ children }: LayoutProps): JSX.Element {
+export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="ja" suppressHydrationWarning>
       <head />

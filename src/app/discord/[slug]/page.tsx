@@ -33,7 +33,7 @@ type PageProps = {
 
 export default async function Page({
   params,
-}: PageProps): Promise<JSX.Element> {
+}: PageProps) {
   const { slug } = await params;
   const article = await DISCORD_CONTENT_DIR.getArticle(slug);
   const headings = getHeadings(article.html);

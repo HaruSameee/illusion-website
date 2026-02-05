@@ -32,7 +32,7 @@ export async function generateStaticParams(): Promise<PageParams[]> {
 
 export default async function Page({
   params,
-}: PageProps): Promise<JSX.Element> {
+}: PageProps) {
   const { slug } = await params;
 
   if (!(await ARTICLE_CONTENT_DIR.existsSlug(slug))) {

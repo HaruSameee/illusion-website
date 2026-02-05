@@ -28,7 +28,7 @@ const TableOfContentsInner = styled("ul")(({ theme }) => ({
 
 export default function TableOfContents({
   headings,
-}: TableOfContentsProps): JSX.Element {
+}: TableOfContentsProps) {
   const [intersectedId, setIntersectedId] = useState<string>();
 
   useEffect(() => {

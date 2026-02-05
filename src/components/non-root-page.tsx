@@ -16,7 +16,7 @@ export type NonRootPageProps = PropsWithChildren<{
 export default function NonRootPage({
   breadcrumbs = [],
   children,
-}: NonRootPageProps): JSX.Element {
+}: NonRootPageProps) {
   return (
     <Stack alignItems="flex-start">
       <Header />

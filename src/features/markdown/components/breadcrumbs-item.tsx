@@ -12,7 +12,7 @@ export default function BreadcrumbsItem({
   href,
   label,
   emphasis = false,
-}: BreadcrumbsItemProps): JSX.Element {
+}: BreadcrumbsItemProps) {
   return (
     <>
       {href && (
