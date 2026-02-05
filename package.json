@@ -18,7 +18,7 @@
     "html-to-text": "^9.0.5",
     "iter-tools": "^7.5.3",
     "lizod": "^0.2.7",
-    "next": "^16.0.1",
+    "next": "16.0.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rehype-budoux": "^1.1.4",
@@ -61,7 +61,9 @@
     "unified": "^11.0.5"
   },
   "homepage": "https://github.com/illusionDev-2/illusion-website#readme",
-  "keywords": ["illusion"],
+  "keywords": [
+    "illusion"
+  ],
   "license": "Apache-2.0",
   "lint-staged": {
     "*.{apng,png,jpg,jpeg,jpe,jfif,jfi,jif,tif,tiff,heif,heic}": [
@@ -85,7 +87,10 @@
     "preview": "NEXT_PUBLIC_BASE_URL=http://localhost:3000 bun run build && serve out",
     "prod": "NEXT_PUBLIC_BASE_URL=https://www.ayanamist.jp bun run"
   },
-  "trustedDependencies": ["@biomejs/biome", "sharp"],
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "sharp"
+  ],
   "type": "module",
   "version": "0.0.0"
 }
