@@ -3,5 +3,6 @@
   "buildCommand": "bun run prod build",
   "git": {
     "deploymentEnabled": false
-  }
+  },
+  "ignoreCommand": "exit 0"
 }
